@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './NoteApp.css'; // Importamos nuestro archivo de estilos CSS
+import './NoteApp.css'; 
 
 const NoteApp = () => {
   const [titulo, setTitulo] = useState('');

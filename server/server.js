@@ -62,7 +62,7 @@ app.post('/correos', (req, res) => {
 
 app.put('/correos/:id', (req, res) => {
   const idCorreo = req.params.id;
-  const nuevoCorreo = req.body.correo; // El nuevo correo que se recibirá en el cuerpo de la solicitud
+  const nuevoCorreo = req.body.correo; 
   const sql = 'UPDATE correos SET correo = ? WHERE id = ?';
   db.query(sql, [nuevoCorreo, idCorreo], (err, result) => {
     if (err) {
