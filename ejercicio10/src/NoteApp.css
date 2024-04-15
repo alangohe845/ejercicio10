@@ -1,0 +1,94 @@
+/* NoteApp.css */
+
+.noteapp-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .add-note-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-note-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .notes-container {
+    margin-top: 20px;
+  }
+  
+  .note-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .note-item h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .note-item p {
+    color: #666;
+  }
+  
+  /* Estilos para los inputs */
+  input[type="text"],
+  textarea {
+    width: calc(100% - 22px); /* Restar el ancho del borde */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Para incluir el padding en el ancho */
+  }
+  
+  /* Estilos específicos para el textarea */
+  textarea {
+    height: 100px; /* Altura fija para el textarea */
+  }
+  
+  /* Estilos para el formulario */
+  form {
+    margin-bottom: 20px;
+  }
+  .delete-note-button {
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-note-button:hover {
+    background-color: #c82333;
+  }
+  .edit-note-button {
+    padding: 8px 16px;
+    background-color: #5aa2d1;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+
+}
+  .edit-note-button:hover{
+    background-color: #23c84c;
+}
