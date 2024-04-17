@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './UserRegistration.css'; 
+import { Button, Input, Table, Tbody, Td, Th, Thead, Tr, useToast, Flex, Center, Heading, Box, IconButton, Text } from '@chakra-ui/react';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 const UserRegistration = () => {
   const [correo, setCorreo] = useState('');
@@ -9,6 +10,7 @@ const UserRegistration = () => {
   const [correoEditado, setCorreoEditado] = useState('');
   const [editandoCorreo, setEditandoCorreo] = useState(null);
   const [correoEditadoValido, setCorreoEditadoValido] = useState(true);
+  const toast = useToast();
 
   useEffect(() => {
     fetchCorreosRegistrados();
@@ -17,7 +19,6 @@ const UserRegistration = () => {
   const fetchCorreosRegistrados = async () => {
     try {
       const response = await axios.get('http://localhost:3001/correos');
-      console.log('Respuesta del servidor:', response.data);
       setCorreosRegistrados(response.data);
     } catch (error) {
       console.error('Error al obtener los correos registrados:', error);
@@ -43,8 +44,22 @@ const UserRegistration = () => {
       await axios.post('http://localhost:3001/correos', { correo });
       setCorreo('');
       fetchCorreosRegistrados();
+      toast({
+        title: "Correo agregado",
+        description: "El correo se ha agregado correctamente.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error('Error al agregar el correo:', error);
+      toast({
+        title: "Error",
+        description: "Ha ocurrido un error al agregar el correo.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -52,8 +67,22 @@ const UserRegistration = () => {
     try {
       await axios.delete(`http://localhost:3001/correos/${id}`); 
       fetchCorreosRegistrados();
+      toast({
+        title: "Correo eliminado",
+        description: "El correo se ha eliminado correctamente.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error('Error al eliminar el correo:', error);
+      toast({
+        title: "Error",
+        description: "Ha ocurrido un error al eliminar el correo.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -63,77 +92,100 @@ const UserRegistration = () => {
       setCorreoEditado('');
       fetchCorreosRegistrados();
       setEditandoCorreo(null);
+      toast({
+        title: "Correo editado",
+        description: "El correo se ha editado correctamente.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error('Error al editar el correo:', error);
+      toast({
+        title: "Error",
+        description: "Ha ocurrido un error al editar el correo.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
   return (
-    <div className="user-registration-container">
-      <h1>Registro de Usuarios</h1>
-      <div className="input-group">
-        <input 
-          type="email" 
-          value={correo} 
-          onChange={handleCorreoChange} 
-          placeholder="Ingrese un correo electrónico" 
-          className={!correoValido ? 'input-invalido' : ''}
-        />
-        <button 
-          onClick={handleAgregarCorreo} 
-          disabled={!correoValido}
-        >
-          Agregar Correo
-        </button>
-      </div>
-      {!correoValido && <p className="mensaje-error">Por favor ingrese un correo electrónico válido.</p>}
-      <h2>Correos Registrados</h2>
-      <table className="email-table">
-        <thead>
-          <tr>
-            <th>Correo Electrónico</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
+    <Box maxW="600px" m="auto" p="20px">
+      <Heading textAlign="center" mb="20px">Registro de Usuarios</Heading>
+      <Flex mb="20px">
+        <Box flex="1">
+          <Input 
+            type="email" 
+            value={correo} 
+            onChange={handleCorreoChange} 
+            placeholder="Ingrese un correo electrónico" 
+            isInvalid={!correoValido}
+          />
+          {!correoValido && <Text color="red.500">Por favor ingrese un correo electrónico válido.</Text>}
+        </Box>
+        <Box ml="10px">
+          <Button 
+            onClick={handleAgregarCorreo} 
+            disabled={!correoValido}
+            colorScheme="blue"
+          >
+            Agregar Correo
+          </Button>
+        </Box>
+      </Flex>
+      <Table variant="simple" mb="20px">
+        <Thead>
+          <Tr>
+            <Th>Correo Electrónico</Th>
+            <Th>Acciones</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           {correosRegistrados.map((correo) => (
-            <tr key={correo.id}>
-              <td>
+            <Tr key={correo.id}>
+              <Td>
                 {editandoCorreo === correo.id ? (
-                  <input 
+                  <Input 
                     type="text" 
                     value={correoEditado} 
                     onChange={handleCorreoEditadoChange} 
-                    className={!correoEditadoValido ? 'input-invalido' : ''}
+                    isInvalid={!correoEditadoValido}
                   />
                 ) : (
                   correo.correo
                 )}
-              </td>
-              <td>
+              </Td>
+              <Td>
                 {editandoCorreo === correo.id ? (
-                  <button 
-                    className="edit-note-button" 
+                  <Button 
                     onClick={() => handleEditarCorreo(correo.id)} 
                     disabled={!correoEditadoValido}
+                    mr="5px"
                   >
                     Guardar
-                  </button>
+                  </Button>
                 ) : (
-                  <button 
-                    className="edit-note-button" 
+                  <IconButton 
                     onClick={() => setEditandoCorreo(correo.id)}
-                  >
-                    Editar
-                  </button>
+                    aria-label="Editar"
+                    icon={<EditIcon />}
+                    mr="5px"
+                  />
                 )}
-                <button className="delete-note-button" onClick={() => handleEliminarCorreo(correo.id)}>Eliminar</button>
-              </td>
-            </tr>
+                <IconButton 
+                  onClick={() => handleEliminarCorreo(correo.id)}
+                  aria-label="Eliminar"
+                  colorScheme="red"
+                  icon={<DeleteIcon />}
+                />
+              </Td>
+            </Tr>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </Tbody>
+      </Table>
+    </Box>
   );
 };
 

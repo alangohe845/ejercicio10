@@ -1,24 +1,25 @@
 .panel-principal {
-  background-color: #ffffff;
-  padding: 0px;
-  margin-top: 0px; 
-
+  background-color: #1a1a1a; /* Cambiamos el color de fondo a un negro profundo */
+  padding: 50px 0;
 }
 
 .panel-principal h2 {
-  font-size: 34px;
-  margin-bottom: 10px;
+  font-size: 48px;
+  margin-bottom: 20px;
   text-align: center;
+  color: #fff; /* Texto en color blanco */
 }
 
 .panel-principal p {
-  font-size: 16px;
+  font-size: 20px;
   text-align: center;
+  color: #ccc; /* Texto en color gris claro */
 }
+
 .container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0px;
+  padding: 0;
 }
 
 .heading {
@@ -26,9 +27,8 @@
 }
 
 .navbar {
-  background-color: #f4f4f4;
-  padding: 10px 0;
-  border-bottom: 2px solid #ddd;
+  background-color: #000; /* Fondo de la barra de navegación en negro */
+  padding: 20px 0; /* Borde inferior en verde brillante */
 }
 
 .nav-list {
@@ -45,14 +45,13 @@
 
 .nav-link {
   text-decoration: none;
-  color: #333;
+  color: #fff; /* Texto en color blanco */
   font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 30px; /* Botones con bordes redondeados */
   transition: background-color 0.3s ease;
 }
 
 .nav-link:hover {
-  background-color: #ddd;
+  background-color: #00ff00; /* Cambiamos el color de fondo al pasar el ratón sobre los botones */
 }
-

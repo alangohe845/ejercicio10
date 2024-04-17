@@ -12,8 +12,8 @@ app.use(express.json());
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'gustavodante202@gmail.com', 
-    pass: 'wcii ersc urkh ksot' 
+    user: 'alangomez845@gmail.com', 
+    pass: 'mxgm zkbf sjec jumn' 
   }
 });
 
@@ -30,7 +30,7 @@ db.connect((err) => {
   }
   console.log('Conectado a la base de datos MySQL');
 });
-
+ 
 
 app.post('/login', (req, res) => {
   const { user, pass } = req.body;
@@ -104,10 +104,10 @@ app.post('/notas', async (req, res) => {
         const correos = correosResult.map(row => row.correo);
 
         const mailOptions = {
-          from: 'gustavodante202@gmail.com', 
+          from: 'alangomez845@gmail.com', 
           to: correos,
-          subject: 'Nueva Nota Agregada',
-          text: `Se ha agregado una nueva nota con el título: ${titulo}, y la descripción: ${descripcion}`
+          subject: 'Nueva notificacion',
+          text: `Titulo: ${titulo}, y descripción: ${descripcion}`
         };
 
         try {

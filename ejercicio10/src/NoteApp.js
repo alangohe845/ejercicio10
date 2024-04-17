@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './NoteApp.css'; 
+import { Box, Heading, Input, Textarea, Button, Stack, Flex, Text } from '@chakra-ui/react';
+import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 
 const NoteApp = () => {
   const [titulo, setTitulo] = useState('');
@@ -74,48 +75,48 @@ const NoteApp = () => {
   };
 
   return (
-    <div className="noteapp-container">
-      <h1>{modoEdicion ? 'Editar Nota' : 'Subir nueva nota'}</h1>
+    <Box maxW="600px" m="auto" p="20px">
+      <Heading textAlign="center" mb="20px">{modoEdicion ? 'Editar Nota' : 'Subir nueva nota'}</Heading>
       <form onSubmit={modoEdicion ? handleGuardarNota : handleAgregarNota}>
-        <label htmlFor="titulo">Título:</label>
-        <input
-          type="text"
-          id="titulo"
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="descripcion">Descripción:</label>
-        <textarea
-          id="descripcion"
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
-          required
-        />
-        <br />
-        <button type="submit" className="add-note-button">
-          {modoEdicion ? 'Actualizar Nota' : 'Agregar Nota'}
-        </button>
-        {modoEdicion && (
-          <button type="button" onClick={handleCancelarEdicion}>Cancelar</button>
-        )}
+        <Stack spacing="15px">
+          <Input
+            type="text"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+            placeholder="Título"
+            isRequired
+          />
+          <Textarea
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            placeholder="Descripción"
+            isRequired
+          />
+          <Flex justifyContent="space-between">
+            <Button type="submit" colorScheme="blue">
+              {modoEdicion ? 'Actualizar Nota' : 'Agregar Nota'}
+            </Button>
+            {modoEdicion && (
+              <Button variant="outline" onClick={handleCancelarEdicion}>Cancelar</Button>
+            )}
+          </Flex>
+        </Stack>
       </form>
       
-      <h2>Notas:</h2>
-      <div className="notes-container">
+      <Heading as="h2" size="md" mb="20px">Notas:</Heading>
+      <Stack spacing="20px">
         {notas.map((nota) => (
-          <div key={nota.id} className="note-item">
-            <h3>{nota.titulo}</h3>
-            <p>{nota.descripcion}</p>
-            <div>
-              <button className="edit-note-button" onClick={() => handleEditarNota(nota)}>Editar</button>
-              <button className="delete-note-button" onClick={() => handleEliminarNota(nota.id)}>Eliminar</button>
-            </div>
-          </div>
+          <Box key={nota.id} p="15px" borderWidth="1px" borderRadius="md">
+            <Heading as="h3" size="md">{nota.titulo}</Heading>
+            <Text>{nota.descripcion}</Text>
+            <Flex mt="10px">
+              <Button onClick={() => handleEditarNota(nota)} leftIcon={<EditIcon />} mr="5px">Editar</Button>
+              <Button onClick={() => handleEliminarNota(nota.id)} leftIcon={<DeleteIcon />} colorScheme="red">Eliminar</Button>
+            </Flex>
+          </Box>
         ))}
-      </div>
-    </div>
+      </Stack>
+    </Box>
   );
 };
 
